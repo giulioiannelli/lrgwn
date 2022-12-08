@@ -124,7 +124,7 @@
 #define DIRPYPR "py/"
 #define DIRRESF "res/"
 #define DIRLOGF "log/"
-#define DIRTMPF "tmp/"
+#define DIRTMPF DIRRESF "tmp/"
 #define DIRHEAD DIRCPRO "head/"
 #define DIRSFMT DIRHEAD "SFMT/"
 #define DIRDATA DIRRESF "data/"
