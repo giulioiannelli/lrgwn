@@ -50,8 +50,8 @@
 #include "dhnn_MOD.h"
 #include "dhnn_UTILS.h"
 
-#pragma GCC diagnostic ignored "-Wunused-result";
-#pragma GCC diagnostic ignored "-Wformat";
+#pragma GCC diagnostic ignored "-Wunused-result"
+#pragma GCC diagnostic ignored "-Wformat"
 
 #define MAXSTRLEN 512
 #define LENSRND 4
@@ -176,9 +176,9 @@ void make_log_dhnn(void)
     fprintf(f_log, LOGPPDO "%s" _TTSARW P_TYPE, DUMP(P_TYPE));
     fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(JI), JI);
     fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(TH), (double)TH);
-    fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(AVG_M), AVG_M);
+    fprintf(f_log, LOGPPDO "%s" _TTSARW "%d", DUMP(AVG_M), AVG_M);
     fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(MCTN), MCTN);
-    fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(NOISET), LOGONOFF(NOISET));
+    fprintf(f_log, LOGPPDO "%s" _TTSARW "%s", DUMP(NOISET), LOGONOFF(NOISET));
 #if NOISET
     fprintf(f_log, LOGPPDO "%s" _TTSARW "%g", DUMP(NOISET), LOGONOFF(NOISET));
 #endif

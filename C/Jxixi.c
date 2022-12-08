@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         }
         memcpy(xi[mu], s, sizeof(*s) * N);
     }
-    sprintf(buf, DIRTMPF __NIS__ _U __TIS__ _U __KIS__ EXTBIN, N, T, K);
+    sprintf(buf, DIRJMA2 __NIS__ _U __TIS__ _U __KIS__ EXTBIN, N, T, K);
     if ((f_out = fopen(buf, "wb")) == NULL)
     {
         fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
