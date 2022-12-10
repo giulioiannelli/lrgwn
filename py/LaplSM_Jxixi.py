@@ -8,12 +8,10 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigs
 #
 #
-# betamin, betamax = 1e-4, 3.33
-# betalist = np.linspace(betamin, betamax, num=4)
-# alphmin, alphmax = 5/N, 0.35
-# alphlist = np.linspace(alphmin, alphmax, num=4)
-betals = [0.5, 1, 2]
-alphls = [0.01, 0.1, 0.2]
+betan, betamin, betamax = 10, 1e-2, 3.33
+alphn, alphmin, alphmax = 20, 1e-3, 2e-1
+betals = np.linspace(betamin, betamax, num=betan)
+alphls = np.linspace(alphmin, alphmax, num=alphn)
 #
 #
 def pFlip(beta):
@@ -75,18 +73,22 @@ def makeSME(J):
 #
 #
 description = """
-    ...
+    Compute the smallest eigenvalue associated to the Laplacian of coupling 
+    matrices. The coupling matrices are obtained by outer product of "patterns"
+    exhibiting spatial correlation. The correlations are tuned via the 
+    "temperature parameter" of a Markov process with two point correlations 
+    exponential in temperature and distance. 
 """
 hPars_N = """
     (int) system size
 """
 default_pn = "| default=genmat"
 hPars_pn = f"""
-    (str) C program name {default_pn:->30}
+    (str) C program name {default_pn:->10}
 """
-default_sJ = "| default=genmat"
+default_sJ = "| default=--no-saveJ"
 hPars_sJ = f"""
-    (bool) store J matrix in a file in binary form {default_sJ:->30}
+    (bool) store J matrix in a file in binary form {default_sJ:->10}
 """
 prsr = argparse.ArgumentParser(description=description)
 prsr.add_argument('N',
