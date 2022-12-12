@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     sprintf(buf, DIRLOGF PROGN _U __NIS "%s" _U __TIS "%s" _U __KIS "%s" EXTLOG,
             argv[1], argv[2], argv[3]);
     make_log(argc, buf, PROGN, argv);
+    check_dirtree();
     srand(time(0) ^ getpid());
     seed_rand[2] = (LSEED1*rand()) % UINT32_MAX;
     seed_rand[3] = (LSEED2*rand()) % UINT32_MAX;

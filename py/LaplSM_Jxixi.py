@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 import subprocess
 #
-from os import remove
+from os import remove, mkdir
 from os.path import exists
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigs
@@ -118,6 +118,11 @@ gccComp = f"gcc -O3 -DSFMT_MEXP=19937 -o exe/{args.pname}.o "\
     "C/head/SFMT/SFMT.c C/Jxixi.c -Wall -lm"
 subprocess.run(gccComp.split(' '))
 #
+restmp = "res/tmp/"
+restmN = f"{restmp}{N:d}/"
+resdat = "res/data/"
+resdtj = f"{resdat}jmat2/"
+mkdir(restmN)
 lsEig = []
 for beta in betals:
     if (pFlip(beta) < 1e-3):
@@ -125,12 +130,13 @@ for beta in betals:
     T = 1./beta
     for alph in alphls:
         K = int(alph*N)
-        fnameE = f"res/tmp/eigs_tmp_N={N:d}_T={T:.3g}_K={K:d}.dat"
+        
+        fnameE = f"{restmN}/eigs_tmp_T={T:.3g}_K={K:d}.dat"
         if exists(fnameE):
             eig  = np.loadtxt(fnameE)[2]
             lsEig.append([T, K, eig])
             continue
-        fnameJ = f"res/data/jmat2/N={N:d}_T={T:.3g}_K={K:d}.bin"
+        fnameJ = f"{resdtj}N={N:d}_T={T:.3g}_K={K:d}.bin"
         subprocess.call([f"exe/{args.pname}.o", f"{N:d}", f"{T:.3g}", f"{K:d}"])
         J = readJ(N, fnameJ)/N
         eig = makeSME(J)
@@ -138,5 +144,5 @@ for beta in betals:
         np.savetxt(fnameE, [np.array([T, K, eig])], fmt='%.3g\t%d\t%g')
         if not saveJ:
             remove(fnameJ)
-fnameE = f"res/data/phdg/eigs_{args.pname}_N={N:d}.dat"
+fnameE = f"{resdat}phdg/eigs_{args.pname}_N={N:d}.dat"
 np.savetxt(fnameE, np.array(lsEig), fmt='%.3g\t%d\t%g')
