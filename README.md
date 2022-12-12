@@ -1,4 +1,5 @@
-## Balancing and unbalancing of Hebbian coupling matrices 
+## Balancing of Hebbian coupling matrices of Hopfield model with correlated patters
+### _or_ The Laplacian Renormalization Group of weighted networks
 
 Git clone the directory with submodules (i.e. the fast Mersenne Twister random number generator `SFMT`):
 ```
