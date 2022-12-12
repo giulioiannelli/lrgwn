@@ -161,6 +161,7 @@ resdat = "res/data/"
 resdtj = f"{resdat}jmat2/"
 resphg = f"{resdat}phdg/"
 fnameE = f"{restmN}/eigs_T={T:.3g}_K={K:d}.dat"
+fnameEtmp = f"{restmN}/tmp_T={T:.3g}_K={K:d}.dat"
 fnameJ = f"{resdtj}N={N:d}_T={T:.3g}_K={K:d}.bin"
 callJxixi = [f"exe/{pname}.o", f"{N:d}", f"{T:.3g}", f"{K:d}"]
 #
@@ -175,6 +176,13 @@ lsEig = []
 lsEigsq = []
 doneAvg = 0
 missAvg = nAvg
+if exists(fnameEtmp):
+    exit()
+np.savetxt(fnameEtmp, [])
+makeJ = splash
+if not saveJ:
+    makeJ = remove
+
 if exists(fnameE) and stat(fnameE).st_size:
     eig_vals = np.loadtxt(fnameE)
     missAvg = int(nAvg-eig_vals[0])
@@ -184,10 +192,7 @@ if not missAvg:
 if nAvg-missAvg:
     lsEig.append(eig_vals[3]*nAvg)
     lsEigsq.append(eig_vals[4]*nAvg)
-if not saveJ:
-    makeJ = remove
-else:
-    makeJ = splash
+
 for i in range(doneAvg, nAvg):
     subprocess.call(callJxixi)
     J = readJ(N, fnameJ)/N
@@ -197,3 +202,5 @@ for i in range(doneAvg, nAvg):
     saveout = np.array([i+1, T, K, sum(lsEig)/nAvg, sum(lsEigsq)/nAvg])
     np.savetxt(fnameE, saveout[None], fmt=fmt)
     makeJ(fnameJ)
+
+remove(fnameEtmp)
