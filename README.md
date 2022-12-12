@@ -15,8 +15,8 @@ To execute the `python` script run `python3 py/LaplSM_Jxixi.py`. Optional and ma
 
 The four mandatory arguments are, in the order, $N$, $\beta=1/T$, $\alpha = K/N$ and the number of averages ${\rm nAvg}$. E.g. `python3 py/LaplSM_Jxixi.py 4096 0.5 0.1 2` generates the file `res/tmp/N=4096/eigs_T=2_K=409.dat`, whose content is
 ```
-# nAvg	                 T                        K                        sum*nAM                  sum^2*nAM
-2.000000000000000000e+00 2.000000000000000000e+00 1.020000000000000000e+02 6.326472119288384377e+00 4.002445657380457078e+01
+# nAvg           T                K                sumE             sumEsq         
+1.0000000000e+01 1.0000000000e+00 5.1200000000e+02 2.6005457573e+01 3.5601927174e+02
 ```
 
 

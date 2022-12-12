@@ -17,23 +17,28 @@ betals = np.linspace(betamin, betamax, num=betan)
 alphls = np.linspace(alphmin, alphmax, num=alphn)
 #
 #
+def splash(*args):
+    pass
+
 def pFlip(beta):
     r"""Compute the flip probability of the Markov Process generating patterns.
-    
+
     This function compute the flip probability of the two-body correlated 
     Markov process which is used to create proxy patters of the 1D
     Ising model. When `beta=0` (i.e. no correlation) `pFlip=0.5`.
-    We use this to avoid computing the matrices when the probability of getting 
-    "frozen" configurations is non negligible. Indeed, if `pFlip` is too 
+    We use this to avoid computing the matrices when the probability of getting
+     "frozen" configurations is non negligible. Indeed, if `pFlip` is too 
     small, i.e. `beta` high, patterns eventually become stringd of \pm 1s.
-    
+
     Parameters
     ----------
     beta : float
-        The inverse temperature of 1D Ising model setting the correlation level 
-        in the Markov process generation.
+        The inverse temperature of 1D Ising model setting the correlation level
+         in the Markov process generation.
     """
     return (1 - .5 * (np.tanh(beta) + 1))
+
+
 def readJ(N, fname):
     r"""Read J_ij matrices from binary file generated through C program Jxixi.
 
@@ -43,7 +48,7 @@ def readJ(N, fname):
     We thus read the numbers, creare a list of lists whose entries are the
     lower triangular matrix rows and then flatten for passing to numpy function
     `np.triu_indices`.
-    
+
     Parameters
     ----------
     N : int
@@ -59,9 +64,11 @@ def readJ(N, fname):
     J[tril] = JltF
     J[triu] = J.T[triu]
     return J
+
+
 def makeSME(J):
     r"""Compute the smallest eigenvalue of the Laplacian of J. 
-    
+
     Parameters
     ----------
     J : array
@@ -73,6 +80,8 @@ def makeSME(J):
     spA = csr_matrix(L)
     eig = eigs(spA, k=1, which='SM')[0].item()
     return np.real(eig)
+
+
 #
 #
 description = """
@@ -143,6 +152,17 @@ nAvg = args.nAvg
 pname = args.pname
 saveJ = args.saveJ
 #
+nAvgStr = "nAvg"
+TStr = "T"
+KStr = "K"
+sumEStr = "sumE"
+sumEsqStr = "sumEsq"
+fmtStr = [nAvgStr, TStr, KStr, sumEStr, sumEsqStr]
+fmtLen = max([len(fS) for fS in fmtStr])
+# hdrTxt = [f"{fS:<{15}}" for fS in fmtStr]
+# header = " ".join(hdrTxt)
+fmt = " ".join([f"%-{fmtLen:d}d", f"%-{fmtLen:d}.3e", f"%-{fmtLen:d}d",
+                f"%-{fmtLen:d}.7e", f"%-{fmtLen:d}.7e"])
 #
 restmp = "res/tmp/"
 restmN = f"{restmp}N={N:d}/"
@@ -152,12 +172,10 @@ resphg = f"{resdat}phdg/"
 fnameE = f"{restmN}/eigs_T={T:.3g}_K={K:d}.dat"
 fnameJ = f"{resdtj}N={N:d}_T={T:.3g}_K={K:d}.bin"
 callJxixi = [f"exe/{pname}.o", f"{N:d}", f"{T:.3g}", f"{K:d}"]
-myfmt = '%d\t\t%.3g\t\t%d\t\t%g\t\t%g'
-header = '\t%0s%18s%18s%18s%18s'%('nAvg','T','K', 'sum*nAM', 'sum^2*nAM')
 #
-makedirs(restmp,exist_ok=True)
-makedirs(restmN,exist_ok=True)
-makedirs(resphg,exist_ok=True)
+makedirs(restmp, exist_ok=True)
+makedirs(restmN, exist_ok=True)
+makedirs(resphg, exist_ok=True)
 #
 if (pFlip(beta) < 1e-3):
     exit()
@@ -167,7 +185,7 @@ lsEigsq = []
 doneAvg = 0
 missAvg = nAvg
 if exists(fnameE) and stat(fnameE).st_size:
-    eig_vals  = np.loadtxt(fnameE)
+    eig_vals = np.loadtxt(fnameE)
     missAvg = int(nAvg-eig_vals[0])
     doneAvg = int(eig_vals[0])
 if not missAvg:
@@ -175,6 +193,10 @@ if not missAvg:
 if nAvg-missAvg:
     lsEig.append(eig_vals[3]*nAvg)
     lsEigsq.append(eig_vals[4]*nAvg)
+if not saveJ:
+    makeJ = remove
+else:
+    makeJ = splash
 for i in range(doneAvg, nAvg):
     subprocess.call(callJxixi)
     J = readJ(N, fnameJ)/N
@@ -182,7 +204,5 @@ for i in range(doneAvg, nAvg):
     lsEig.append(eig)
     lsEigsq.append(eig*eig)
     saveout = np.array([i+1, T, K, sum(lsEig)/nAvg, sum(lsEigsq)/nAvg])
-    np.savetxt(fnameE, saveout[None],
-               header=header)
-    if not saveJ:
-        remove(fnameJ)
+    np.savetxt(fnameE, saveout[None], fmt=fmt)
+    makeJ(fnameJ)
