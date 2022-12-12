@@ -1,0 +1,32 @@
+{+} LOG FILE OF ----------------------------|Jxixi.c
+	[+] INFO: exe/genmat.o 256 100 43
+	 |	created directory (w ERRNO) -> C/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> exe/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> in/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> C/head/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> C/head/SFMT/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/fcfg/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/chck/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/cfgs/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/hop2/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/hop3/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/jmat2/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/jmat3/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/tmp/	(File exists)
+	 |	resetting errno to 0.
