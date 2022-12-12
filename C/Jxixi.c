@@ -25,7 +25,7 @@
  *          email: giulioiannelli.w@gmail.com
  *
  * COMPILATION:
- *   gcc -O3 -DSFMT_MEXP=19937 -o exe/a.o C/head/SFMT/SFMT.c C/i1Dmkvp.c
+ *   gcc -O3 -DSFMT_MEXP=19937 -o exe/Jxixi.o C/head/SFMT/SFMT.c C/Jxixi.c
  *          -Wall -lm
  *
  * AUTHOR: Giulio Iannelli =========================== START DATE:   01 sep 2022

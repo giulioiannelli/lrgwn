@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 import subprocess
 #
-from os import remove, mkdir, makedirs
+from os import remove, mkdir, makedirs, stat
 from os.path import exists
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigs
@@ -85,6 +85,15 @@ description = """
 hPars_N = """
     (int) system size
 """
+hPars_b = """
+    (float) inverse temperature of the generating patterns beta = 1/T 
+"""
+hPars_a = """
+    (float) storage load of the network alph = K/N
+"""
+hPars_nA = """
+    (int) number of averages
+"""
 default_pn = "| default=genmat"
 hPars_pn = f"""
     (str) C program name {default_pn:->10}
@@ -98,9 +107,21 @@ prsr.add_argument('N',
                   type=int,
                   help=hPars_N
                   )
+prsr.add_argument('beta',
+                  type=float,
+                  help=hPars_b
+                  )
+prsr.add_argument('alph',
+                  type=float,
+                  help=hPars_a
+                  )
+prsr.add_argument('nAvg',
+                  type=int,
+                  help=hPars_nA
+                  )
 prsr.add_argument('--pname',
                   type=str,
-                  default="genmat",
+                  default="Jxixi",
                   help=hPars_pn
                   )
 prsr.add_argument('--saveJ',
@@ -114,42 +135,54 @@ prsr.add_argument('--no-saveJ',
 prsr.set_defaults(feature=True)
 args = prsr.parse_args()
 N = args.N
+beta = args.beta
+alph = args.alph
+T = 1./beta
+K = int(alph*N)
+nAvg = args.nAvg
+pname = args.pname
 saveJ = args.saveJ
 #
-#
-gccComp = f"gcc -O3 -DSFMT_MEXP=19937 -o exe/{args.pname}.o "\
-    "C/head/SFMT/SFMT.c C/Jxixi.c -Wall -lm"
-subprocess.run(gccComp.split(' '))
 #
 restmp = "res/tmp/"
 restmN = f"{restmp}N={N:d}/"
 resdat = "res/data/"
 resdtj = f"{resdat}jmat2/"
 resphg = f"{resdat}phdg/"
+fnameE = f"{restmN}/eigs_T={T:.3g}_K={K:d}.dat"
+fnameJ = f"{resdtj}N={N:d}_T={T:.3g}_K={K:d}.bin"
+callJxixi = [f"exe/{pname}.o", f"{N:d}", f"{T:.3g}", f"{K:d}"]
+myfmt = '%d\t\t%.3g\t\t%d\t\t%g\t\t%g'
+header = '\t%0s%18s%18s%18s%18s'%('nAvg','T','K', 'sum*nAM', 'sum^2*nAM')
+#
 makedirs(restmp,exist_ok=True)
 makedirs(restmN,exist_ok=True)
 makedirs(resphg,exist_ok=True)
-
+#
+if (pFlip(beta) < 1e-3):
+    exit()
+#
 lsEig = []
-for beta in betals:
-    if (pFlip(beta) < 1e-3):
-        continue
-    T = 1./beta
-    for alph in alphls:
-        K = int(alph*N)
-        
-        fnameE = f"{restmN}/eigs_tmp_T={T:.3g}_K={K:d}.dat"
-        if exists(fnameE):
-            eig  = np.loadtxt(fnameE)[2]
-            lsEig.append([T, K, eig])
-            continue
-        fnameJ = f"{resdtj}N={N:d}_T={T:.3g}_K={K:d}.bin"
-        subprocess.call([f"exe/{args.pname}.o", f"{N:d}", f"{T:.3g}", f"{K:d}"])
-        J = readJ(N, fnameJ)/N
-        eig = makeSME(J)
-        lsEig.append([T, K, eig])
-        np.savetxt(fnameE, [np.array([T, K, eig])], fmt='%.3g\t%d\t%g')
-        if not saveJ:
-            remove(fnameJ)
-fnameE = f"{resphg}eigs_{args.pname}_N={N:d}.dat"
-np.savetxt(fnameE, np.array(lsEig), fmt='%.3g\t%d\t%g')
+lsEigsq = []
+doneAvg = 0
+missAvg = nAvg
+if exists(fnameE) and stat(fnameE).st_size:
+    eig_vals  = np.loadtxt(fnameE)
+    missAvg = int(nAvg-eig_vals[0])
+    doneAvg = int(eig_vals[0])
+if not missAvg:
+    exit()
+if nAvg-missAvg:
+    lsEig.append(eig_vals[3]*nAvg)
+    lsEigsq.append(eig_vals[4]*nAvg)
+for i in range(doneAvg, nAvg):
+    subprocess.call(callJxixi)
+    J = readJ(N, fnameJ)/N
+    eig = makeSME(J)
+    lsEig.append(eig)
+    lsEigsq.append(eig*eig)
+    saveout = np.array([i+1, T, K, sum(lsEig)/nAvg, sum(lsEigsq)/nAvg])
+    np.savetxt(fnameE, saveout[None],
+               header=header)
+    if not saveJ:
+        remove(fnameJ)
