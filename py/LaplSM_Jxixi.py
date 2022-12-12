@@ -8,15 +8,6 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigs
 #
 #
-r"""
-    Provide two list betals and alphls.
-"""
-betan, betamin, betamax = 10, 1e-2, 3.33
-alphn, alphmin, alphmax = 20, 1e-3, 2e-1
-betals = np.linspace(betamin, betamax, num=betan)
-alphls = np.linspace(alphmin, alphmax, num=alphn)
-#
-#
 def splash(*args):
     pass
 
