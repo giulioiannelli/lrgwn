@@ -125,7 +125,15 @@ restmp = "res/tmp/"
 restmN = f"{restmp}{N:d}/"
 resdat = "res/data/"
 resdtj = f"{resdat}jmat2/"
-mkdir(restmN)
+resphg = f"{resdat}phdg/"
+try:
+    mkdir(restmN)
+except FileExistsError:
+    pass
+try:
+    mkdir(resphg)
+except FileExistsError:
+    pass
 lsEig = []
 for beta in betals:
     if (pFlip(beta) < 1e-3):
@@ -147,5 +155,5 @@ for beta in betals:
         np.savetxt(fnameE, [np.array([T, K, eig])], fmt='%.3g\t%d\t%g')
         if not saveJ:
             remove(fnameJ)
-fnameE = f"{resdat}phdg/eigs_{args.pname}_N={N:d}.dat"
+fnameE = f"{resphg}eigs_{args.pname}_N={N:d}.dat"
 np.savetxt(fnameE, np.array(lsEig), fmt='%.3g\t%d\t%g')
