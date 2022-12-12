@@ -13,7 +13,7 @@ The name of the prgram output can be safely changed from `Jxixi` to whatever[^1]
 
 To execute the `python` script run `python3 py/LaplSM_Jxixi.py`. Optional and mandatory arguments are listed when calling for help `python3 py/LaplSM_Jxixi.py -h`. 
 
-The four mandatory arguments are, in the order, $N$, $\beta=1/T$, $\alpha = K/N$ and the number of averages $\#{\rm nAvg}$. E.g. `python3 py/LaplSM_Jxixi.py 4096 0.5 0.1 2` generates the file `res/tmp/N=4096/eigs_T=2_K=409.dat`, whose content is
+The four mandatory arguments are, in the order, $N$, $\beta=1/T$, $\alpha = K/N$ and the number of averages ${\rm nAvg}$. E.g. `python3 py/LaplSM_Jxixi.py 4096 0.5 0.1 2` generates the file `res/tmp/N=4096/eigs_T=2_K=409.dat`, whose content is
 ```
 # nAvg	                 T                        K                        sum*nAM                  sum^2*nAM
 2.000000000000000000e+00 2.000000000000000000e+00 1.020000000000000000e+02 6.326472119288384377e+00 4.002445657380457078e+01
