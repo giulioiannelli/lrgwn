@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 import subprocess
 #
-from os import remove, mkdir
+from os import remove, mkdir, makedirs
 from os.path import exists
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigs
@@ -122,18 +122,14 @@ gccComp = f"gcc -O3 -DSFMT_MEXP=19937 -o exe/{args.pname}.o "\
 subprocess.run(gccComp.split(' '))
 #
 restmp = "res/tmp/"
-restmN = f"{restmp}{N:d}/"
+restmN = f"{restmp}N={N:d}/"
 resdat = "res/data/"
 resdtj = f"{resdat}jmat2/"
 resphg = f"{resdat}phdg/"
-try:
-    mkdir(restmN)
-except FileExistsError:
-    pass
-try:
-    mkdir(resphg)
-except FileExistsError:
-    pass
+makedirs(restmp,exist_ok=True)
+makedirs(restmN,exist_ok=True)
+makedirs(resphg,exist_ok=True)
+
 lsEig = []
 for beta in betals:
     if (pFlip(beta) < 1e-3):
