@@ -168,4 +168,4 @@
 
 char *dirarr[] = {DIRCPRO, DIREXEC, DIRINPT, DIRRESF, DIRHEAD, DIRSFMT, DIRDATA,
                   DIRFCFG, DIRCHCK, DIRCFGS, DIRHOP2, DIRHOP3, DIRJMA2,
-                  DIRJMA3};
+                  DIRJMA3, DIRTMPF};
