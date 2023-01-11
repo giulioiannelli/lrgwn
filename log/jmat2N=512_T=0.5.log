@@ -1,0 +1,11 @@
+{+} LOG FILE OF ----------------------------|jmat2.c
+	[+] INFO: exe/jmat2.o 512 0.5
+
+[?] PROGRAM FAILURE: 
+	 |	expected uint64 type as command line input.
+	 |	got instead: ame MARKOV_N=512_T
+	 |	
+	 |	
+	 |	
+	 |--> EXITING THE PROGRAM
+
