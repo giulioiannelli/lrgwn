@@ -1,4 +1,4 @@
-#define __DHNN_V_TEMP__
+#define __DHNN_V_ALPH__
 /* BOOLEAN OPTIONS ---------------------------------------------------------- */
 
 #define ISING1D 0
@@ -28,7 +28,7 @@
 #define NOISEP 1e-2
 #endif
 #define PTHRESH 1e-3
-#define AVG_M 2
+#define AVG_M 10
 
 #define HOPS "2"
 #define MCTN round(sqrt(N))

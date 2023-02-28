@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
     uint64_t effKNUM, missingK;
     /* get variable from command line */
     N = strtoul_chck(argv[1], 10);
-    Ti = strtod_chck(argv[2]);
+    T = strtod_chck(argv[2]);
     /* check pflip */
-    sprintf(buf, DIRCHCK P_TYPES _U __NIS__ _U __TIS__ EXTTXT, N, Ti);
+    sprintf(buf, DIRCHCK P_TYPES _U __NIS__ _U __TIS__ EXTTXT, N, T);
     if ((f_out = fopen(buf, "w+")) == NULL)
     {
         fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     }
     else if (!(strncmp(buf, DIRCFGS, strlen(DIRCFGS))))
     {
-        sprintf(buf2, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U "[", N, Ti);
+        sprintf(buf2, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U "[", N, T);
         strncpy(buf3, buf + strlen(buf2), strlen(buf) - strlen(buf2) - 5);
         effKNUM = strtoull_chck(buf3, 10);
         if (effKNUM >= KNUM)
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     }
     /* open the file */
     sprintf(buf, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U __KNUMIS__ EXTBIN,
-            N, Ti, effKNUM);
+            N, T, effKNUM);
     if ((f_out = fopen(buf, "a+b")) == NULL)
     {
         printf(MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     if (effKNUM < KNUM)
     {
         sprintf(buf2, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U __KNUMIS__ EXTBIN,
-                N, Ti, KNUM);
+                N, T, KNUM);
         if ((rename(buf, buf2)) == 0)
         {
             fprintf(f_log, PIFRSUC);

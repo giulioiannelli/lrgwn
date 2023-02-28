@@ -1,0 +1,75 @@
+{+} LOG FILE OF ----------------------------|dhnn.c
+	[+] INFO: exe/a.o in/in-test.txt
+	[•] PREPROCESSOR DIRECTIVES: 
+	[•] WORKING IN SETTING: __DHNN_V_ALPH__
+	[•] SFFX		-> _renormH2
+	[•] P_TYPE		-> MARKOV
+	[•] JI		-> 1
+	[•] TH		-> 0
+	[•] AVG_M		-> 2
+	[•] MCTN		-> 0
+	[•] NOISET		-> |OFF|
+	[•] ISING1D		-> |OFF|
+	[•] MARKOVP		-> |ON |
+	[•] JCOUP2		-> |ON |
+	[•] JCOUP3		-> |OFF|
+	[•] HOPF2		-> |OFF|
+	[•] HOPF3		-> |OFF|
+	[•] JREAD		-> |OFF|
+	[•] JREAD		-> |ON |
+	 |	created directory (w ERRNO) -> C/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> exe/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> in/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> C/head/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> C/head/SFMT/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/fcfg/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/chck/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/cfgs/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/hop2/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/hop3/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/jmat2/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/data/jmat3/	(File exists)
+	 |	resetting errno to 0.
+	 |	created directory (w ERRNO) -> res/tmp/	(File exists)
+	 |	resetting errno to 0.
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=1.16.txt
+	[*] EXECUTED: jmat2_d 512 0.01
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=2.26.txt
+	[*] EXECUTED: jmat2_d 512 0.05
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=6.6.txt
+	[*] EXECUTED: jmat2_d 512 0.12
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=3.29.txt
+	[*] EXECUTED: jmat2_d 512 0.08
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=2.9.txt
+	[*] EXECUTED: jmat2_d 512 0.07
+	[+] INFO: 
+	 |	file did not exist -> res/data/chck/MARKOVCHECK_N=512_T=4.38.txt
+	[*] EXECUTED: jmat2_d 512 0.1
+
+[?] PROGRAM FAILURE: 
+	 |	error opening file -> in/T-alpha2/N=512_K=72.txt
+	 |	
+	 |	
+	 |	
+	 |--> EXITING THE PROGRAM
+

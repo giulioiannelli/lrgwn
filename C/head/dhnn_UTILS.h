@@ -75,7 +75,7 @@
 
 #ifdef __DHNN_V_TEMP__
 #define V_ALPH_SFFX ""
-#define STRTiAl strTi
+#define STRTiAl strT
 #elif defined(__DHNN_V_ALPH__)
 #define V_ALPH_SFFX "_d"
 #define STRTiAl strAl

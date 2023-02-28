@@ -31,7 +31,7 @@ def pFlip(beta):
 
 
 def readJ(N, fname):
-    r"""Read J_ij matrices from binary file generated through C program Jxixi.
+    r"""Read J_ij matrices from binary files.
 
     The coupling matrices are stored as only the lower triangular part, without
     diagonal, being J_{ii} = 0 and J_{ij} = J_{ji}. They are saved as int32 
@@ -51,7 +51,7 @@ def readJ(N, fname):
     J = np.zeros((N, N))
     Jbin = np.fromfile(fname, dtype=np.int32)
     Jlt = [[Jbin[((i*(i-1))//2+j)] for j in range(i)] for i in range(N)]
-    JltF = np.array([item for sublist in Jlt for item in sublist])
+    JltF = np.array([i for sbl in Jlt for i in sbl])
     J[tril] = JltF
     J[triu] = J.T[triu]
     return J

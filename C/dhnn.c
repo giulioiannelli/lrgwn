@@ -66,13 +66,12 @@ int main(int argc, char *argv[])
     FILE *f_in, *f_r;
     finputopen(&f_in, argv[1]);
 #ifdef __DHNN_V_TEMP__
-    while (fscanf(f_in, "%" SCNu32 " %lf %lf", &N, &Ti, &Th) != EOF)
+    while (fscanf(f_in, "%" SCNu32 " %lf %lf", &N, &T, &Th) != EOF)
     {
         /* strings for execv arguments */
-        printf("debug\n");
-        strlen_u16 = snprintf(NULL, 0, STR_FMT_T, Ti) + 1;
-        strTi = malloc(strlen_u16);
-        snprintf(strTi, strlen_u16, STR_FMT_T, Ti);
+        strlen_u16 = snprintf(NULL, 0, STR_FMT_T, T) + 1;
+        strT = malloc(strlen_u16);
+        snprintf(strT, strlen_u16, STR_FMT_T, T);
 #else
     FILE *f_inb;
     while (fscanf(f_in, "%" SCNu32 " %lf %lf", &N, &Al, &Th) != EOF)
@@ -90,37 +89,38 @@ int main(int argc, char *argv[])
         printf("debug\n");
         /* pattern generation -- MODES: >ISING1D< or >MARKOVP< */
 #ifdef __DHNN_V_ALPH__
-        sprintf(buf, DIRTALP __AIS__ _U __NIS__ EXTTXT, Al, N);
+        K = (uint32_t) (Al*N);
+        sprintf(buf, DIRTALP __NIS__ _U __KIS__  EXTTXT, N, K);
         // sprintf(buf, DIRINPT TPFXH HOPS _U STR_FMT_A EXTTXT, Al);
         if ((f_inb = fopen(buf, "r+")) == NULL)
         {
             fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
             exit(EXIT_FAILURE);
         }
-        while (fscanf(f_inb, "%lf", &Ti) != EOF)
+        while (fscanf(f_inb, "%lf", &T) != EOF)
         {
-            strlen_u16 = snprintf(NULL, 0, STR_FMT_T, Ti) + 1;
-            strTi = malloc(strlen_u16);
-            snprintf(strTi, strlen_u16, STR_FMT_T, Ti);
+            strlen_u16 = snprintf(NULL, 0, STR_FMT_T, T) + 1;
+            strT = malloc(strlen_u16);
+            snprintf(strT, strlen_u16, STR_FMT_T, T);
 #endif
             /* pattern generation -- MODES: >ISING1D< or >MARKOVP< */
             sprintf(buf, DIRCFGS P_TYPE _UNISUTIS_ _U __KNUMIS__ EXTBIN,
-                    N, Ti, KNUM);
+                    N, T, KNUM);
             /* check KNUM configuration exists, otherwise generate */
             printf("debug\n");
             if (F_NEXIST(buf))
             {
                 fprintf(f_log, MSGINFO PIFNXST "%s", buf);
 #if ISING1D
-                char *args1DK[] = {(char *)NI1DK, strN, strTi, NULL};
+                char *args1DK[] = {(char *)NI1DK, strN, strT, NULL};
                 run_sub(3, args1DK);
 #elif MARKOVP
-                char *argsMarkov[] = {(char *)NMC1D, strN, strTi, NULL};
+                char *argsMarkov[] = {(char *)NMC1D, strN, strT, NULL};
                 run_sub(3, argsMarkov);
 #endif
             }
             /* reading check/check */
-            sprintf(buf, DIRCHCK P_TYPES _UNISUTIS_ EXTTXT, N, Ti);
+            sprintf(buf, DIRCHCK P_TYPES _UNISUTIS_ EXTTXT, N, T);
             if ((f_r = fopen(buf, "r")) == NULL)
             {
                 fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
@@ -135,11 +135,11 @@ int main(int argc, char *argv[])
             if THCOND
             {
                 FREE_VALSET_STR2();
-                fprintf(f_log, MSGWARN PWEXDTH PISKPCV __NIS__ _C __TIS__ _C __THIS__, N, Ti, Th);
+                fprintf(f_log, MSGWARN PWEXDTH PISKPCV __NIS__ _C __TIS__ _C __THIS__, N, T, Th);
                 continue;
             }
 #ifdef __DHNN_V_ALPH__
-            free(strTi);
+            free(strT);
         }
         fclose(f_inb);
 #endif

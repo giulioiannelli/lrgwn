@@ -58,6 +58,9 @@ def βcH3(α, αc=αcAbbott):
 def TcH3(α, αc=αcAbbott):
     return 1./βcH3(α, αc=αc)
 
+def βcH2_rootinv(α, T=0, αc=αcStiefvater):
+    return βcH2(α, αc=αc)-1./T
+
 def TcH2root(α, t=0, αc=αcStiefvater):
     return 1/βcH2(α, αc=αc) - t
 

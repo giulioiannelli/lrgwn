@@ -84,6 +84,7 @@ resdat = "res/data/"
 resdtj = f"{resdat}jmat2/"
 inset = np.loadtxt(fname)
 #
+
 for vs in inset:
     N = int(vs[0])
     T = vs[1]

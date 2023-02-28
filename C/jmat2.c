@@ -28,14 +28,14 @@ int main(int argc, char *argv[])
     double Al;
     double *a_vals;
     N = strtoul_chck(argv[1], 10);
-    Ti = strtod_chck(argv[2]);
+    T = strtod_chck(argv[2]);
     /* find the file, if exists, */
     find_CFGS();
-    sprintf(buf2, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U "[", N, Ti);
+    sprintf(buf2, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U "[", N, T);
     strncpy(buf3, buf + strlen(buf2), strlen(buf) - strlen(buf2) - 5);
     effKNUM = strtoull_chck(buf3, 10);
     /* initialize Klist */
-    sprintf(buf, DIRINPT KPFX _S __NIS__ _U __TIS__ EXTTXT, Ti, N);
+    sprintf(buf, DIRINPT KPFX _S __NIS__ _U __TIS__ EXTTXT, T, N);
     if ((f_in = fopen(buf, "r+")) == NULL)
     {
         fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     }
     /* initialize patterns */
     sprintf(buf, DIRCFGS P_TYPE _U __NIS__ _U __TIS__ _U __KNUMIS__ EXTBIN,
-            N, Ti, effKNUM);
+            N, T, effKNUM);
     if ((f_in = fopen(buf, "rb")) == NULL)
     {
         fprintf(f_log, MSGFAIL PFFOPEN "%s" MSGEXIT, buf);
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
             sprintf(buf, DIRJMA2 P_TYPE _U __NIS__ _S, N);
             make_dir(buf);
             sprintf(buf + strlen(buf), __TIS__ _U __KIS__ _U "%" PRIu16 EXTBIN,
-                    Ti, K, m);
+                    T, K, m);
             if ((F_EEXIST(buf)))
-            { //|| (1./Ti < beta_cH2((double) K_vals[kp]/N))
+            { //|| (1./T < beta_cH2((double) K_vals[kp]/N))
                 fprintf(f_log, MSGINFO PICJMNK __AIS__, a_vals[ap]);
                 continue;
             }

@@ -1,0 +1,10 @@
+{+} LOG FILE OF ----------------------------|jmat2_d.c
+	[+] INFO: jmat2_d 512 0.05
+
+[?] PROGRAM FAILURE: 
+	 |	error opening file -> in/T-alpha2/alpha=0.05_N=512.txt
+	 |	
+	 |	
+	 |	
+	 |--> EXITING THE PROGRAM
+
